@@ -76,7 +76,24 @@ function addToHistory(city) {
     if (!history.includes(city)) {
         history.push(city);
         localStorage.setItem('history', JSON.stringify(history));
+        displayHistory();
     }
+}
+
+function displayHistory() {
+    const historyDiv = document.createElement('div');
+    const history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
+    // this foreach is getting the names of the cities from the localStorage and making it into a button. 
+    history.forEach((city) => {
+        const cityButton = document.createElement('button');
+        cityButton.textContent = city;
+        // The event listener is so we can go back to see the previous cities weather forecast.
+        cityButton.addEventListener('click', () => {
+            getWeather(city);
+        });
+        historyDiv.appendChild(cityButton);
+    });
+    document.body.appendChild(historyDiv);
 }
 
 // we are calling the form const and when we submit from there we are looking for the input and if it has a city it runs the getWeather function and then clears the search bar.
