@@ -3,6 +3,7 @@ const cityInput = document.getElementById('city');
 const weatherFig = document.getElementById('weather');
 const forecastArt = document.getElementById('forecast');
 
+// City is coming from the weather api array
 async function getWeather(city) {
     try {
         // If the city is found from the geocoding api it converts it into the lat and lon for the weather and forecast apis.
@@ -18,16 +19,19 @@ async function getWeather(city) {
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=a940d80377acb0b2e23b22339c9ce1ba&units=imperial`);
         const weatherData = await weatherResponse.json();
         displayWeather(weatherData);
+        addToHistory(city);
         // the parameters for both apis are lat and lon for the city, appid for our api key, and units so the data is miles and farenheit.
         const forecastResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=a940d80377acb0b2e23b22339c9ce1ba&units=imperial`);
         const forecastData = await forecastResponse.json();
         displayForecast(forecastData);
+        // error is coming from the weather api array
     } catch (error) {
         // if there is an error in the try block we can see in the console.
         console.error(error);
     }
 }
 
+// Data is coming from the weather api array
 function displayWeather(data) {
     const weatherFig = document.getElementById('weather');
     // what the html will look like when we display the weather.
@@ -65,6 +69,16 @@ function displayForecast(data) {
     document.body.appendChild(forecastArt);
 }
 
+function addToHistory(city) {
+    // this const is reading to see if theres an array and if there isnt it makes an empty one under the history variable.
+    const history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
+    // we are creating a history array that includes the city we searched for and its pushing it to the end of the array.
+    if (!history.includes(city)) {
+        history.push(city);
+        localStorage.setItem('history', JSON.stringify(history));
+    }
+}
+
 // we are calling the form const and when we submit from there we are looking for the input and if it has a city it runs the getWeather function and then clears the search bar.
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -74,3 +88,5 @@ form.addEventListener('submit', (e) => {
         cityInput.value = '';
     }
 });
+
+displayHistory();
