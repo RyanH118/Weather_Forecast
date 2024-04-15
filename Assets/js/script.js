@@ -2,6 +2,8 @@ const form = document.querySelector('form');
 const cityInput = document.getElementById('city');
 const weatherFig = document.getElementById('weather');
 const forecastArt = document.getElementById('forecast');
+const historyDiv = document.getElementById('history');
+
 
 // City is coming from the weather api array
 async function getWeather(city) {
@@ -81,7 +83,6 @@ function addToHistory(city) {
 }
 
 function displayHistory() {
-    const historyDiv = document.createElement('div');
     const history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
     // this foreach is getting the names of the cities from the localStorage and making it into a button. 
     history.forEach((city) => {
