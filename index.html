@@ -8,28 +8,26 @@
     <title>Weather Dashboard</title>
 </head>
 
-<body>
-    <header>
+<body class="grid-container">
+    <header class="grid1">
         <h1>Weather Forecast</h1>
     </header>
-    <aside>
+    <aside class="grid2">
         <form>
             <input type="text" id="city" placeholder="Enter city name..."><br>
             <button type="submit">Search</button>
         </form>
-        <!-- this is where history will show up. -->
-        <div></div>
+        <div id="history">
+            <!-- this is where the history will show up. -->
+        </div>
     </aside>
 
-    <div id="history">
-        <!-- this is where the history will show up. -->
-    </div>
 
-    <figure id="weather">
+    <figure id="weather" class="grid3">
         <!-- For todays weather forecast. -->
     </figure>
 
-    <article id="forecast">
+    <article id="forecast" class="grid4">
         <!-- For the 5-Day Forecast. -->
     </article>
 

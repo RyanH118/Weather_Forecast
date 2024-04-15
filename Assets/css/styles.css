@@ -12,3 +12,16 @@ header {
     text-align: center;
     background-color: aqua;
 }
+
+.grid1 {grid-area: header;}
+.grid2 {grid-area: aside;}
+.grid3 {grid-area: figure;}
+.grid4 {grid-area: article;}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 
+    'header header header'
+    'aside figure figure'
+    'aside article article';
+}
