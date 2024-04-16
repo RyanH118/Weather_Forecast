@@ -10,7 +10,7 @@ https://ryanh118.github.io/Weather_Forecast/
 
 ## Usage
 
-![alt text](assets/images/London.png)
+![alt text](./Assets/images/London.png)
 
-![alt text](assets/images/Barcelona.png)
+![alt text](./Assets/images/Barcelona.png)
 
