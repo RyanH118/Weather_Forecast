@@ -98,11 +98,19 @@ function addToHistory(city) {
 
 function displayHistory() {
     const history = localStorage.getItem('history') ? JSON.parse(localStorage.getItem('history')) : [];
-    // this foreach is getting the names of the cities from the localStorage and making it into a button. 
+    // this foreach is getting the names of the cities from the localStorage and making it into a button
     history.forEach((city) => {
+        // This if statement is looking at the btns already made and skipping it so it doesnt duplicate
+        const existingButton = historyAsd.querySelector(`button[data-city="${city}"]`);
+        if (existingButton) {
+            return;
+        }
+
         const cityButton = document.createElement('button');
         cityButton.textContent = city;
         cityButton.classList.add('btn', 'btn-secondary', 'btn-block')
+        // This data set is to help the if statement look for existing city btns.
+        cityButton.dataset.city = city; // set the data-city attribute to the city name
         // The event listener is so we can go back to see the previous cities weather forecast.
         cityButton.addEventListener('click', () => {
             getWeather(city);
