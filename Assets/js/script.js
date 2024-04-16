@@ -2,7 +2,7 @@ const form = document.querySelector('form');
 const cityInput = document.getElementById('city');
 const weatherFig = document.getElementById('weather');
 const forecastArt = document.getElementById('forecast');
-const historyDiv = document.getElementById('history');
+const historyAsd = document.getElementById('history');
 
 
 // City is coming from the weather api array
@@ -34,19 +34,30 @@ async function getWeather(city) {
 }
 
 // Data is coming from the weather api array
+// what the html will look like when we display the weather.
 function displayWeather(data) {
     const weatherFig = document.getElementById('weather');
-    // what the html will look like when we display the weather.
     weatherFig.innerHTML = `
-    <h2>${data.name} - ${new Date(data.dt * 1000).toLocaleDateString()}</h2>
-    <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
-    <p>Temperature: ${data.main.temp}°F</p>
-    <p>Wind Speed: ${data.wind.speed} mph</p>
-    <p>Humidity: ${data.main.humidity}%</p>
+    <div class="card m-4" style="max-width: 540px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+                <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}" class="card-img">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">${data.name} - ${new Date(data.dt * 1000).toLocaleDateString()}</h5>
+                    <p class="card-text">Temperature: ${data.main.temp}°F</p>
+                    <p class="card-text">Wind Speed: ${data.wind.speed} mph</p>
+                    <p class="card-text">Humidity: ${data.main.humidity}%</p>
+                </div>
+            </div>
+        </div>
+    </div>
     `;
+    // Had to add more divs for a better look for the horizontal card from bootstrap.
+    // ${data.main.temp} gets temp from the api, ${data.wind.speed} gets the wind speeds, ${data.main.humidity} gets the humidity.
     // ${data.name} is city name and ${new Date(data.dt * 1000).toLocaleDateString() is the current date.
     // ${data.weather[0].icon} is a img of the weather conditions and if the image isn't working the alt is a desc.
-    // ${data.main.temp} gets temp from the api, ${data.wind.speed} gets the wind speeds, ${data.main.humidity} gets the humidity.
     document.body.appendChild(weatherFig);
 }
 
@@ -54,11 +65,14 @@ function displayForecast(data) {
     const forecastArt = document.getElementById('forecast');
     forecastArt.innerHTML = '<h2>5-Day Forecast:</h2>';
     let forecastDate = new Date();
-    // this slice only gets the first 5 items from the forecast api array.
+    // this gets the day and then adds 1 for a different day.
+    forecastArt.classList.add('row');
     data.list.slice(0, 5).forEach((forecast) => {
-        // this gets the day and then adds 1 for a different day.
+        // this slice only gets the first 5 items from the forecast api array.
         forecastDate.setDate(forecastDate.getDate() + 1);
         const forecastItem = document.createElement('div');
+        // Added cards from bootstrap and put them in a column.
+        forecastItem.classList.add('col-md-2', 'text-center', 'border', 'p-2', 'm-2', 'text-bg-dark');
         forecastItem.innerHTML = `
         <h3>${forecastDate.toLocaleDateString()}</h3>
         <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" alt="${forecast.weather[0].description}">
@@ -88,13 +102,14 @@ function displayHistory() {
     history.forEach((city) => {
         const cityButton = document.createElement('button');
         cityButton.textContent = city;
+        cityButton.classList.add('btn', 'btn-secondary', 'btn-block')
         // The event listener is so we can go back to see the previous cities weather forecast.
         cityButton.addEventListener('click', () => {
             getWeather(city);
         });
-        historyDiv.appendChild(cityButton);
+        historyAsd.appendChild(cityButton);
     });
-    document.body.appendChild(historyDiv);
+    document.body.appendChild(historyAsd);
 }
 
 // we are calling the form const and when we submit from there we are looking for the input and if it has a city it runs the getWeather function and then clears the search bar.

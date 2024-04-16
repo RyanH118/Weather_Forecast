@@ -10,7 +10,8 @@ body {
 
 header {
     text-align: center;
-    background-color: aqua;
+    background-color: #FF5733;
+    padding: 10px;
 }
 
 .grid1 {grid-area: header;}
@@ -24,4 +25,14 @@ header {
     'header header header'
     'aside figure figure'
     'aside article article';
+}
+
+hr {
+    width: 215px;
+}
+
+.btn {
+    width: 195px;
+    height: 35px;
+    margin: 5px;
 }
